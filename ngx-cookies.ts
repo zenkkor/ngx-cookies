@@ -29,12 +29,13 @@ export class NgXCookies {
 	 *
 	 * @param  {string} cookieName Name/ID of cookie
 	 * @param  {string} value cookie value
-	 * @param  {number} validity expiration date of cookie in days from now.
+	 * @param  {number} validity expiration date of cookie (default is minutes).
+	 * @param  {string} validityType Unit for specifying validity time: days || hours . If left blank, default validity is in minutes
 	 * @param  {string} domain Set a specific domain for the cookie to be reachable at
 	 * @param  {string} path Path relative to domain
 	 * @param  {boolean} needsSecureConnection true/false if cookie can only be accessed through secure
 	 */
-	public static setCookie(cookieName: string, value: string, validity?: number, domain?: string, path?: string, needsSecureConnection?: boolean) {
+	public static setCookie(cookieName: string, value: string, validity?: number, validityType?: string, domain?: string, path?: string, needsSecureConnection?: boolean) {
 
 		let cookieStr = encodeURIComponent(cookieName) + '=' + encodeURIComponent(value) + ';';
 
@@ -42,7 +43,18 @@ export class NgXCookies {
 		 * Sets validity of cookie
 		 */
 		if (validity) {
-			let daysValid = new Date(new Date().getTime() + validity * 1000 * 60 * 60 * 24);
+
+			let fullValidity = validity * 1000 * 60;
+
+			if (validityType == 'days') {
+				fullValidity *= (60*24);
+			}
+			else if (validityType == 'hours') {
+				fullValidity *= 60;
+			}
+
+			let daysValid = new Date(new Date().getTime() + fullValidity);
+
 			cookieStr += 'expires=' + daysValid.toUTCString() + ';';
 		}
 
