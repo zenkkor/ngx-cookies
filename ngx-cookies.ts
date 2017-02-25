@@ -8,7 +8,7 @@ export class NgXCookies {
 	 */
 	public static getCookie(cookieName: string): string  {
 
-		let cookieExists = NgXCookie.exists(cookieName);
+		let cookieExists = NgXCookies.exists(cookieName);
 
 		if (cookieExists)
 		{
@@ -71,12 +71,12 @@ export class NgXCookies {
 	public static deleteCookie(cookieName: string, domain?: string, path?: string)
 	{
 
-		let cookieExists = NgXCookie.exists(cookieName);
+		let cookieExists = NgXCookies.exists(cookieName);
 
 		// If the cookie exists
 		if (cookieExists)
 		{
-			NgXCookie.setCookie(cookieName, '', -1, domain, path);
+			NgXCookies.setCookie(cookieName, '', -1, domain, path);
 		}
 	}
 
