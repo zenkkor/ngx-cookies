@@ -88,7 +88,7 @@ export class NgXCookies {
 		// If the cookie exists
 		if (cookieExists)
 		{
-			NgXCookies.setCookie(cookieName, '', -1, domain, path);
+			NgXCookies.setCookie(cookieName, '', -1, '', domain, path);
 		}
 	}
 
